@@ -1,12 +1,10 @@
 package com.example.gestorseries.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 @Entity
@@ -19,6 +17,13 @@ public class Artista {
     private String pais;
     private LocalDate fecha;
     private String biografia;
+    @ManyToMany
+    @JoinTable(
+            name = "artista_cancion",
+            joinColumns = @JoinColumn(name = "artista_id"),
+            inverseJoinColumns = @JoinColumn(name = "cancion_id")
+    )
+    private Set<Cancion> canciones;
 
 
 

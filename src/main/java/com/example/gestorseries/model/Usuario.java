@@ -28,5 +28,21 @@ public class Usuario {
     @OneToOne (mappedBy = "usuario",cascade = CascadeType.ALL,orphanRemoval = true,fetch =FetchType.LAZY )
     private Perfil perfil;
     //cada clase tiene la otra como atributo en bideireccional
+    //N:M con playlist
+    @ManyToMany
+    @JoinTable (
+            name = "usuario_playlist",
+            joinColumns = @JoinColumn (name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn (name = "playlist_id")
+    )
+    private Set <Playlist> playlists;
+    //N:M con cancion para favoritas
+    @ManyToMany
+    @JoinTable (
+            name = "usuario_cancion",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name="cancion_id")
+    )
+    private Set <Cancion> favoritas;
 
 }
