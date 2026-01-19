@@ -5,9 +5,10 @@ import com.example.gestorseries.model.Playlist;
 import com.example.gestorseries.repository.CancionRepository;
 import com.example.gestorseries.repository.PlaylistRepository;
 import com.example.gestorseries.service.PlaylistService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class PlaylistServiceImpl implements PlaylistService {
 
     private final PlaylistRepository playlistRepo;

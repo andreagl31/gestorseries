@@ -2,6 +2,7 @@ package com.example.gestorseries.controllers;
 
 import com.example.gestorseries.model.Album;
 import com.example.gestorseries.service.AlbumService;
+import com.example.gestorseries.service.implementaciones.AlbumServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
