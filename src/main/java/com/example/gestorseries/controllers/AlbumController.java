@@ -1,5 +1,6 @@
 package com.example.gestorseries.controllers;
 
+import com.example.gestorseries.dtos.AlbumDTO;
 import com.example.gestorseries.model.Album;
 import com.example.gestorseries.service.AlbumService;
 import com.example.gestorseries.service.implementaciones.AlbumServiceImpl;
@@ -17,20 +18,24 @@ public class AlbumController {
 
     // Crear álbum
     @PostMapping
-    public ResponseEntity<Album> crear(@RequestBody Album album) {
+    public ResponseEntity<AlbumDTO> crear(@RequestBody Album album) {
         return ResponseEntity.ok(albumService.crear(album));
     }
 
     // Listar álbumes con canciones
     @GetMapping
-    public ResponseEntity<List<Album>> listar() {
+    public ResponseEntity<List<AlbumDTO>> listar() {
         return ResponseEntity.ok(albumService.listar());
     }
 
     // Obtener álbum con canciones
     @GetMapping("/{id}")
-    public ResponseEntity<Album> obtener(@PathVariable Long id) {
+    public ResponseEntity<AlbumDTO> obtener(@PathVariable Long id) {
         return ResponseEntity.ok(albumService.obtenerPorId(id));
+    }
+    @GetMapping("/con-canciones")
+    public ResponseEntity<List<AlbumDTO>> listarAlbumesConCanciones() {
+        return ResponseEntity.ok(albumService.listar());
     }
 
 }

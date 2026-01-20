@@ -1,5 +1,6 @@
 package com.example.gestorseries.controllers;
 
+import com.example.gestorseries.dtos.PerfilDTO;
 import com.example.gestorseries.model.Perfil;
 import com.example.gestorseries.service.PerfilService;
 import lombok.RequiredArgsConstructor;
@@ -16,19 +17,19 @@ public class PerfilController {
 
     // Crear perfil
     @PostMapping
-    public ResponseEntity<Perfil> crear(@RequestBody Perfil perfil) {
+    public ResponseEntity<PerfilDTO> crear(@RequestBody Perfil perfil) {
         return ResponseEntity.ok(perfilService.crear(perfil));
     }
 
     // Listar perfiles con usuario
     @GetMapping
-    public ResponseEntity<List<Perfil>> listar() {
+    public ResponseEntity<List<PerfilDTO>> listar() {
         return ResponseEntity.ok(perfilService.listar());
     }
 
     // Obtener perfil con usuario
     @GetMapping("/{id}")
-    public ResponseEntity<Perfil> obtener(@PathVariable Long id) {
+    public ResponseEntity<PerfilDTO> obtener(@PathVariable Long id) {
         return ResponseEntity.ok(perfilService.obtenerPorId(id));
     }
 }

@@ -2,6 +2,7 @@ package com.example.gestorseries.controllers;
 
 //el controlador habla con el servicio y controla las peticiones q le llegan del front
 
+import com.example.gestorseries.dtos.CancionDTO;
 import com.example.gestorseries.model.Cancion;
 import com.example.gestorseries.service.CancionService;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +23,12 @@ public class CancionController {
     //te devuelve la cancion creada y recibe en el request body la cancion a crear,
     //llama al mñetodo del constructor para crearla
     @PostMapping
-    public ResponseEntity<Cancion> crearCancion(@RequestBody Cancion cancion){
+    public ResponseEntity<CancionDTO> crearCancion(@RequestBody Cancion cancion){
         return ResponseEntity.ok(cancionService.crear(cancion));
     }
     //lista de canciones en todal
     @GetMapping
-    public ResponseEntity<List<Cancion>> obtenerCanciones(){
+    public ResponseEntity<List<CancionDTO>> obtenerCanciones(){
         return ResponseEntity.ok(cancionService.listar());
 
     }
@@ -35,7 +36,7 @@ public class CancionController {
     @GetMapping("/{id}")
     //esta variable va en la ruta y no en el body ya que solo es un pequeño id y nos tenemos q meter
     // a el mediante la ruta en vez de ir en el cuerpo
-    public  ResponseEntity<Cancion> obtenerCancion(@PathVariable Long id){
+    public  ResponseEntity<CancionDTO> obtenerCancion(@PathVariable Long id){
         return ResponseEntity.ok(cancionService.obtenerPorId(id));
 
     }

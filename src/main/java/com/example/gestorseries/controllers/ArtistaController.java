@@ -1,5 +1,6 @@
 package com.example.gestorseries.controllers;
 
+import com.example.gestorseries.dtos.ArtistaDTO;
 import com.example.gestorseries.model.Artista;
 import com.example.gestorseries.service.ArtistaService;
 import lombok.RequiredArgsConstructor;
@@ -16,19 +17,19 @@ public class ArtistaController {
 
     // Crear artista
     @PostMapping
-    public ResponseEntity<Artista> crear(@RequestBody Artista artista) {
+    public ResponseEntity<ArtistaDTO> crear(@RequestBody Artista artista) {
         return ResponseEntity.ok(artistaService.crear(artista));
     }
 
     // Listar artistas con canciones
     @GetMapping
-    public ResponseEntity<List<Artista>> listar() {
+    public ResponseEntity<List<ArtistaDTO>> listar() {
         return ResponseEntity.ok(artistaService.listar());
     }
 
     // Obtener artista con canciones
     @GetMapping("/{id}")
-    public ResponseEntity<Artista> obtener(@PathVariable Long id) {
+    public ResponseEntity<ArtistaDTO> obtener(@PathVariable Long id) {
         return ResponseEntity.ok(artistaService.obtenerPorId(id));
     }
 }

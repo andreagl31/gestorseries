@@ -1,5 +1,6 @@
 package com.example.gestorseries.controllers;
 
+import com.example.gestorseries.dtos.UsuarioDTO;
 import com.example.gestorseries.model.Usuario;
 import com.example.gestorseries.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -17,17 +18,17 @@ public class UsuarioController {
 
     // Crear usuario
     @PostMapping
-    public ResponseEntity<Usuario> crear(@RequestBody Usuario usuario) {
+    public ResponseEntity<UsuarioDTO> crear(@RequestBody Usuario usuario) {
         return ResponseEntity.ok(usuarioService.crear(usuario));
     }
     // Listar usuarios
     @GetMapping
-    public ResponseEntity<List<Usuario>> listar() {
+    public ResponseEntity<List<UsuarioDTO>> listar() {
         return ResponseEntity.ok(usuarioService.listar());
     }
     // Obtener usuario por ID
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> obtener(@PathVariable Long id) {
+    public ResponseEntity<UsuarioDTO> obtener(@PathVariable Long id) {
         return ResponseEntity.ok(usuarioService.obtenerPorId(id));
     }
 
@@ -40,14 +41,19 @@ public class UsuarioController {
     // Listar playlists del usuario
     @GetMapping("/{id}/playlists")
     public ResponseEntity<Set<?>> obtenerPlaylists(@PathVariable Long id) {
-        Usuario usuario = usuarioService.obtenerPorId(id);
+        UsuarioDTO usuario = usuarioService.obtenerPorId(id);
         return ResponseEntity.ok(usuario.getPlaylists());
     }
     // Listar canciones favoritas del usuario
     @GetMapping("/{id}/favoritas")
     public ResponseEntity<Set<?>> obtenerFavoritas(@PathVariable Long id) {
-        Usuario usuario = usuarioService.obtenerPorId(id);
+        UsuarioDTO usuario = usuarioService.obtenerPorId(id);
         return ResponseEntity.ok(usuario.getFavoritas());
+    }
+    //Listar usuario con perfil
+    @GetMapping("/con-perfil")
+    public ResponseEntity<List<UsuarioDTO>> listarUsuariosConPerfil() {
+        return ResponseEntity.ok(usuarioService.listar());
     }
 
 

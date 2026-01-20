@@ -22,13 +22,5 @@ public class Playlist {
     @ManyToMany(mappedBy = "playlists")
     private Set<Cancion> canciones = new HashSet<>();
 
-    // ✅ Getter manual
-    public Set<Cancion> getCanciones() {
-        return canciones;
-    }
 
-    // ✅ Setter manual
-    public void setCanciones(Set<Cancion> canciones) {
-        this.canciones = canciones;
-    }
 }

@@ -1,5 +1,6 @@
 package com.example.gestorseries.service.implementaciones;
 
+import com.example.gestorseries.dtos.PerfilDTO;
 import com.example.gestorseries.model.Perfil;
 import com.example.gestorseries.repository.PerfilRepository;
 import com.example.gestorseries.service.PerfilService;
@@ -9,6 +10,17 @@ import java.util.List;
 
 @Service
 public class PerfilServiceImpl implements PerfilService {
+    //CONVERSOR A DTO
+    private PerfilDTO toPerfilDTO(Perfil perfil) {
+        PerfilDTO dto = new PerfilDTO();
+        dto.setId(perfil.getId());
+        dto.setApellido(perfil.getApellido());
+        dto.setBiografia(perfil.getBiografia());
+        dto.setFechaNacimiento(perfil.getFechaNacimiento());
+        dto.setPais(perfil.getPais());
+        return dto;
+    }
+
     private final PerfilRepository perfilRepo;
 
     public PerfilServiceImpl(PerfilRepository perfilRepo) {
@@ -16,18 +28,18 @@ public class PerfilServiceImpl implements PerfilService {
     }
 
     @Override
-    public Perfil crear(Perfil perfil) {
-        return perfilRepo.save(perfil);
+    public PerfilDTO crear(Perfil perfil) {
+        return toPerfilDTO(perfilRepo.save(perfil));
     }
 
     @Override
-    public Perfil obtenerPorId(Long id) {
-        return  perfilRepo.findById(id).orElse(null);
+    public PerfilDTO obtenerPorId(Long id) {
+        return toPerfilDTO(perfilRepo.findById(id).orElse(null));
     }
 
     @Override
-    public List<Perfil> listar() {
-        return perfilRepo.findAll();
+    public List<PerfilDTO> listar() {
+        return perfilRepo.findAll().stream().map(this::toPerfilDTO).toList();
     }
 
     @Override

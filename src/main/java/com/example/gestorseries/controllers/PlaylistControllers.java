@@ -1,5 +1,6 @@
 package com.example.gestorseries.controllers;
 
+import com.example.gestorseries.dtos.PlaylistDTO;
 import com.example.gestorseries.model.Playlist;
 import com.example.gestorseries.service.PlaylistService;
 import lombok.RequiredArgsConstructor;
@@ -15,18 +16,18 @@ public class PlaylistControllers {
     private final PlaylistService playlistService;
     //Crear playlist
     @PostMapping
-    public ResponseEntity<Playlist> crearPlaylist(@RequestBody Playlist playlist) {
+    public ResponseEntity<PlaylistDTO> crearPlaylist(@RequestBody Playlist playlist) {
         return ResponseEntity.ok(playlistService.crear(playlist));
     }
     // Listar todas
     @GetMapping
-    public ResponseEntity<List<Playlist>> listar() {
+    public ResponseEntity<List<PlaylistDTO>> listar() {
         return ResponseEntity.ok(playlistService.listar());
     }
 
     // Obtener por ID
     @GetMapping("/{id}")
-    public ResponseEntity<Playlist> obtenerPorId(@PathVariable Long id) {
+    public ResponseEntity<PlaylistDTO> obtenerPorId(@PathVariable Long id) {
         return ResponseEntity.ok(playlistService.obtenerPorId(id));
     }
 

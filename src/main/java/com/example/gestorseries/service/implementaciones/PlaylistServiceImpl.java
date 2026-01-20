@@ -1,5 +1,7 @@
 package com.example.gestorseries.service.implementaciones;
 
+import com.example.gestorseries.dtos.CancionSimpleDTO;
+import com.example.gestorseries.dtos.PlaylistDTO;
 import com.example.gestorseries.model.Cancion;
 import com.example.gestorseries.model.Playlist;
 import com.example.gestorseries.repository.CancionRepository;
@@ -8,8 +10,38 @@ import com.example.gestorseries.service.PlaylistService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class PlaylistServiceImpl implements PlaylistService {
+
+
+    //inicializamos los dtos
+    private CancionSimpleDTO toCancionSimpleDTO(Cancion c) {
+        CancionSimpleDTO dto = new CancionSimpleDTO();
+        dto.setId(c.getId());
+        dto.setTitulo(c.getTitulo());
+        dto.setGenero(c.getGenero());
+        return dto;
+    }
+    private PlaylistDTO toPlaylistDTO(Playlist p) {
+        PlaylistDTO dto = new PlaylistDTO();
+        dto.setId(p.getId());
+        dto.setNombre(p.getNombre());
+        dto.setPublica(p.isPublica());
+
+        if (p.getCanciones() != null) {
+            dto.setCanciones(
+                    p.getCanciones()
+                            .stream()
+                            .map(this::toCancionSimpleDTO)
+                            .collect(Collectors.toSet())
+            );
+        }
+
+        return dto;
+    }
+
 
     private final PlaylistRepository playlistRepo;
     private final CancionRepository cancionRepo;
@@ -20,19 +52,24 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public Playlist crear(Playlist playlist) {
-        return playlistRepo.save(playlist);
+    public PlaylistDTO crear(Playlist playlist) {
+        return toPlaylistDTO(playlistRepo.save(playlist));
     }
 
     @Override
-    public Playlist obtenerPorId(Long id) {
-        return playlistRepo.findById(id)
+    public PlaylistDTO obtenerPorId(Long id) {
+        Playlist playlist = playlistRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Playlist no encontrada"));
+
+        return toPlaylistDTO(playlist);
     }
 
     @Override
-    public List<Playlist> listar() {
-        return playlistRepo.findAll();
+    public List<PlaylistDTO> listar() {
+        return playlistRepo.findAll()
+                .stream()
+                .map(this::toPlaylistDTO)
+                .toList();
     }
 
     @Override

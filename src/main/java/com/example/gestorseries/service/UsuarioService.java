@@ -1,12 +1,14 @@
 package com.example.gestorseries.service;
 
+import com.example.gestorseries.dtos.UsuarioDTO;
 import com.example.gestorseries.model.Usuario;
 
 import java.util.List;
 
 public interface UsuarioService {
-    Usuario crear (Usuario usuario);
-    Usuario obtenerPorId (Long id);
-    List<Usuario> listar ();
+    UsuarioDTO crear (Usuario usuario);
+    UsuarioDTO obtenerPorId (Long id);
+    List<UsuarioDTO> listar ();
     void eliminar(Long id);
+
 }
